@@ -1,22 +1,30 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
-const LanguageSelector = ({ onLanguageChange }) => {
+const LanguageSelector = () => {
     const [selectedLanguage, setSelectedLanguage] = useState("en");
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
 
     useEffect(() => {
-        const savedLanguage = localStorage.getItem("language") || "en";
-        setSelectedLanguage(savedLanguage);
-        onLanguageChange(savedLanguage);
-    }, [onLanguageChange]);
+        // Extract the current language from the pathname
+        const currentLanguage = pathname.split('/')[1] || "en";
+        setSelectedLanguage(currentLanguage);
+    }, [pathname]);
 
     const toggleLanguage = () => {
         const newLanguage = selectedLanguage === "en" ? "jp" : "en";
         setSelectedLanguage(newLanguage);
-        onLanguageChange(newLanguage);
-        localStorage.setItem("language", newLanguage);
+
+        // Strip out the current locale from the pathname if it exists
+        const newPathname = pathname.replace(/^\/(en|jp)/, '');
+
+        // Reconstruct the full URL with the new language and query parameters
+        const newUrl = `/${newLanguage}${newPathname}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
+        router.push(newUrl);
     };
 
     return (
@@ -24,7 +32,7 @@ const LanguageSelector = ({ onLanguageChange }) => {
             {/* this hidden checkbox controls the state */}
             <input
                 type="checkbox"
-                checked={selectedLanguage === "jp"}
+                checked={selectedLanguage === "en"}
                 onChange={toggleLanguage}
             />
 

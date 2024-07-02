@@ -7,7 +7,7 @@ import ThemeController from "./ThemeController";
 import DropdownLogin from "./DropdownLogin";
 import LanguageSelector from "./LanguageSelector";
 
-const HomeNavBar = ({ onLanguageChange }) => {
+const HomeNavBar = () => {
     return (
         <div className="navbar bg-base-100">
             <div className="flex-1">
@@ -18,7 +18,7 @@ const HomeNavBar = ({ onLanguageChange }) => {
 
             <div className="navbar-right flex items-center space-x-2">
                 <DropdownLogin />
-                <LanguageSelector onLanguageChange={onLanguageChange} />
+                <LanguageSelector  />
                 <ThemeController />
             </div>
         </div>

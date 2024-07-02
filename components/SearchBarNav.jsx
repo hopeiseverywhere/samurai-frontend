@@ -2,11 +2,14 @@
 
 import React from "react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function NavBarSearchBar() {
     const [searchQuery, setSearchQuery] = useState("");
+    
     const router = useRouter();
+    const pathname = usePathname();
+
 
     const capitalizeWords = (str) => {
         return str.replace(/\b\w/g, (char) => char.toUpperCase());
@@ -16,7 +19,12 @@ export default function NavBarSearchBar() {
         e.preventDefault();
         if (searchQuery.trim()) {
             const formattedQuery = capitalizeWords(searchQuery.trim());
-            router.push(`/search?nickName=${encodeURIComponent(formattedQuery)}`);
+            const locale = pathname.split("/")[1] || "en"; // Extract the locale from the pathname
+            router.push(
+                `/${locale}/search?nickName=${encodeURIComponent(
+                    formattedQuery
+                )}`
+            );
         }
     };
 
@@ -26,7 +34,7 @@ export default function NavBarSearchBar() {
                 <input
                     type="text"
                     className="grow"
-                    placeholder="Search"
+                    placeholder=""
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />

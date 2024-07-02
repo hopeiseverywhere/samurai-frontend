@@ -1,12 +1,15 @@
-"use client";
+"use client"
 
 import React from "react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
-export default function HomeSearchBar() {
+export default function HomeSearchBar({placeholder, button}) {
+    
     const [searchQuery, setSearchQuery] = useState("");
     const router = useRouter();
+    const pathname = usePathname();
 
     const capitalizeWords = (str) => {
         return str.replace(/\b\w/g, (char) => char.toUpperCase());
@@ -16,8 +19,11 @@ export default function HomeSearchBar() {
         e.preventDefault();
         if (searchQuery.trim()) {
             const formattedQuery = capitalizeWords(searchQuery.trim());
+            const locale = pathname.split("/")[1] || "en"; // Extract the locale from the pathname
             router.push(
-                `/search?nickName=${encodeURIComponent(formattedQuery)}`
+                `/${locale}/search?nickName=${encodeURIComponent(
+                    formattedQuery
+                )}`
             );
         }
     };
@@ -26,14 +32,12 @@ export default function HomeSearchBar() {
         <form className="search-bar" onSubmit={handleSearch}>
             <input
                 type="text"
-                placeholder="Search Nick Name..."
+                placeholder={placeholder}
                 className="input input-bordered w-full max-w-xs"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <button className="btn btn-primary">Primary</button>
+            <button className="btn btn-primary">{button}</button>
         </form>
     );
-
-    
 }

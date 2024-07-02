@@ -1,0 +1,23 @@
+{
+    "Home": {
+        "title": "Samurai",
+        "db": "Database"
+    },
+    "NotFoundPage": {
+        "title": "404"
+    },
+    "SearchResults": {
+        "title": "Search Results for",
+        "noResults": "No results found.",
+        "samurai": "Samurai",
+        "figure": "Historical Figure"
+    },
+    "SearchCard": {
+        "samurai": "Samurai",
+        "figure": "Historical Figure"
+    },
+    "HomeSearchBar": {
+        "placeholder": "Search Nick Name...",
+        "button": "Search"
+    }
+}

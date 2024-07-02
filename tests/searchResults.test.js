@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import SearchResults from "@app/search/page"; // Adjust the path according to your actual file structure
+import SearchResults from "@app/[locale]/search/page"; // Adjust the path according to your actual file structure
 
 // Mocking the SearchBar component
 jest.mock("@components/SearchBar", () => {

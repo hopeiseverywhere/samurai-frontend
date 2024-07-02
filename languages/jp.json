@@ -1,0 +1,23 @@
+{
+    "Home": {
+        "title": "侍",
+        "db": "データベース"
+    },
+    "NotFoundPage": {
+        "title": "404"
+    },
+    "SearchResults": {
+        "title": "検索結果",
+        "noResults": "結果が見つかりませんでした。",
+        "samurai": "侍",
+        "figure": "歴史的人物"
+    },
+    "SearchCard": {
+        "samurai": "侍",
+        "figure": "歴史的人物"
+    },
+    "HomeSearchBar": {
+        "placeholder": "ニックネームを検索...",
+        "button": "検索"
+    }
+}
