@@ -12,7 +12,8 @@ body {
 }
 
 .language-selector {
-    margin-left: auto; /* Push it to the right end */
+    margin-left: auto;
+    /* Push it to the right end */
 }
 
 .language-select-dropdown {
@@ -126,10 +127,29 @@ body {
     display: none;
 }
 
-.theme-controller input:checked + .swap-on {
+.theme-controller input:checked+.swap-on {
     display: block;
 }
 
-.theme-controller input:not(:checked) + .swap-off {
+.theme-controller input:not(:checked)+.swap-off {
     display: block;
+}
+
+/* ReactFlow */
+
+.window-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+}
+
+.reactflow-wrapper {
+    flex-grow: 1;
+    height: 80%;
 }

@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { getTranslations } from "../../../util/localeLoader";
 import SearchResults from "@components/SearchResults";
@@ -15,7 +13,7 @@ async function getSearchResults(nickName, locale) {
     if (!res.ok) {
         throw new Error("Failed to fetch data");
     }
-    return res.json();
+    return await res.json();
 }
 
 export default async function SearchResultsPage({ searchParams, params }) {

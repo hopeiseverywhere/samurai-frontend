@@ -10,14 +10,16 @@
         "title": "Search Results for",
         "noResults": "No results found.",
         "samurai": "Samurai",
-        "figure": "Historical Figure"
+        "figure": "Historical Figure",
+        "details": "Details"
     },
-    "SearchCard": {
+    "SearchResultCard": {
         "samurai": "Samurai",
-        "figure": "Historical Figure"
+        "figure": "Historical Figure",
+        "details": "Details"
     },
     "HomeSearchBar": {
-        "placeholder": "Search Nick Name...",
+        "placeholder": "Search Nickname...",
         "button": "Search"
     }
 }

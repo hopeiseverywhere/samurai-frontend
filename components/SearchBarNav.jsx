@@ -1,15 +1,12 @@
+// components/NavBarSearchBar.jsx
 "use client";
-
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
 export default function NavBarSearchBar() {
     const [searchQuery, setSearchQuery] = useState("");
-    
     const router = useRouter();
     const pathname = usePathname();
-
 
     const capitalizeWords = (str) => {
         return str.replace(/\b\w/g, (char) => char.toUpperCase());
@@ -19,13 +16,16 @@ export default function NavBarSearchBar() {
         e.preventDefault();
         if (searchQuery.trim()) {
             const formattedQuery = capitalizeWords(searchQuery.trim());
-            const locale = pathname.split("/")[1] || "en"; // Extract the locale from the pathname
-            router.push(
-                `/${locale}/search?nickName=${encodeURIComponent(
-                    formattedQuery
-                )}`
-            );
+            const locale = pathname.split("/")[1] || "en";
+            const url = `/${locale}/search?nickName=${encodeURIComponent(
+                formattedQuery
+            )}`;
+            router.push(url);
         }
+    };
+
+    const handleInputChange = (e) => {
+        setSearchQuery(e.target.value);
     };
 
     return (
@@ -34,20 +34,20 @@ export default function NavBarSearchBar() {
                 <input
                     type="text"
                     className="grow"
-                    placeholder=""
+                    placeholder="Search..."
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={handleInputChange}
                 />
-                <button type="submit">
+                <button type="submit" className="btn btn-ghost btn-circle">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
+                        viewBox="0 0 24 24"
                         fill="currentColor"
-                        className="h-4 w-4 opacity-70"
+                        className="h-6 w-6"
                     >
                         <path
                             fillRule="evenodd"
-                            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                            d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
                             clipRule="evenodd"
                         />
                     </svg>

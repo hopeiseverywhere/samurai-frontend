@@ -1,0 +1,65 @@
+{
+    "givenName": {
+        "en": "Iyeyasu",
+        "jp": "家康"
+    },
+    "familyName": {
+        "en": "Tokugawa",
+        "jp": "徳川"
+    },
+    "nickName": {
+        "jp": "徳川家康",
+        "en": "Iyeyasu Tokugawa"
+    },
+    "sex": null,
+    "birthDate": null,
+    "deathDate": null,
+    "identifier": "cf740ff3-d45c-4043-867a-c778584a07b1",
+    "relationshipTypeWithParent": null,
+    "offspring": [
+        {
+            "givenName": {
+                "en": "Hidetada",
+                "jp": "秀忠"
+            },
+            "familyName": {
+                "en": "Tokugawa",
+                "jp": "徳川"
+            },
+            "nickName": {
+                "jp": "徳川秀忠",
+                "en": "Hidetada Tokugawa"
+            },
+            "sex": null,
+            "birthDate": null,
+            "deathDate": null,
+            "identifier": "3f027650-adea-4ab8-8d07-b80ab2cd7fac",
+            "relationshipTypeWithParent": "BIOLOGICAL",
+            "offspring": [
+                {
+                    "givenName": {
+                        "en": "Iyemitsu",
+                        "jp": "家光"
+                    },
+                    "familyName": {
+                        "en": "Tokugawa",
+                        "jp": "徳川"
+                    },
+                    "nickName": {
+                        "jp": "徳川家光",
+                        "en": "Iyemitsu Tokugawa"
+                    },
+                    "sex": null,
+                    "birthDate": null,
+                    "deathDate": null,
+                    "identifier": "82124fa3-5322-49e2-8979-01999748d19e",
+                    "relationshipTypeWithParent": "BIOLOGICAL",
+                    "offspring": [],
+                    "familyHead": true
+                }
+            ],
+            "familyHead": true
+        }
+    ],
+    "familyHead": true
+}

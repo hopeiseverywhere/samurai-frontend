@@ -18,7 +18,6 @@ const SearchResults = ({ results, translations, locale, nickName }) => {
                             key={result.identifier}
                             result={result}
                             locale={locale}
-                            translations={translations.SearchResults}
                         />
                     ))}
                 </ul>
