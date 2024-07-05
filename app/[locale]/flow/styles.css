@@ -1,0 +1,75 @@
+.providerflow {
+    display: flex;
+    height: 90vh;
+    width: 90vw;
+    padding: auto;
+    border: #1a192b 1px;
+}
+
+.providerflow .sidebar .description {
+    margin-bottom: 10px;
+}
+
+.providerflow .sidebar h1 {
+    font-weight: 700;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+.providerflow .sidebar .transform {
+    margin-bottom: 20px;
+}
+
+/* ReactFlow wrapper styles */
+.providerflow .reactflow-wrapper {
+    flex-grow: 1;
+    /* Allow the ReactFlow container to grow */
+    border: 1;
+}
+
+.providerflow .selectall {
+    margin-top: 10px;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .providerflow {
+        flex-direction: column;
+    }
+
+    .providerflow .sidebar {
+        height: auto;
+    }
+}
+
+
+.providerflow .sidebar {
+    width: 20%;
+    padding: 10px 1px;
+
+    background: #fff;
+    border-right: 1px solid #eee;
+    padding-right: 20px;
+}
+
+
+/* Styles for the draggable nodes in the sidebar */
+.dndnode {
+    font-size: 18px;
+    padding: 10px;
+    border: 2px solid #1a192b;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+}
+
+.dndnode.input {
+    border-color: #0041d0;
+}
+
+.dndnode.output {
+    border-color: #ff0072;
+}

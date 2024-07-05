@@ -1,7 +1,8 @@
-// RootLayout.js or RootLayout.jsx
+// app/[locale]/layout.js
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import ClientLayout from "./client-layout";
+import ClientLayout from "@components/ClientLayout";
+import "@styles/globals.css";
 
 export const metadata = {
     title: "Next.js",
@@ -17,7 +18,9 @@ export default async function RootLayout({ children, params }) {
         <html lang={locale}>
             <body>
                 <NextIntlClientProvider messages={messages} locale={locale}>
-                    <ClientLayout locale={locale}>{children}</ClientLayout>
+                    <ClientLayout locale={locale} messages={messages}>
+                        {children}
+                    </ClientLayout>
                 </NextIntlClientProvider>
             </body>
         </html>
