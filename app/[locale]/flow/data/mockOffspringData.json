@@ -59,6 +59,27 @@
                 }
             ],
             "familyHead": true
+        },
+        {
+            "givenName": {
+                "en": "Yorinobu",
+                "jp": "頼宣"
+            },
+            "familyName": {
+                "en": "Tokugawa",
+                "jp": "徳川"
+            },
+            "nickName": {
+                "jp": "徳川頼宣",
+                "en": "Yorinobu Tokugawa"
+            },
+            "sex": null,
+            "birthDate": null,
+            "deathDate": null,
+            "identifier": "3f027650-adea-4ab8-8d07-b80ab2cd722c",
+            "relationshipTypeWithParent": "BIOLOGICAL",
+            "offspring": [],
+            "familyHead": false
         }
     ],
     "familyHead": true

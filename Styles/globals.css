@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    height: 100%;
+}
 body {
+    height: 100%;
     margin: 0;
     padding: 0;
     display: flex;
@@ -137,19 +141,8 @@ body {
 
 /* ReactFlow */
 
-.window-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-}
 
-.reactflow-wrapper {
+/* .reactflow-wrapper {
     flex-grow: 1;
     height: 80%;
-}
+} */

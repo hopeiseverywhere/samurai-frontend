@@ -8,7 +8,7 @@ export default function ClientLayout({ children, locale, messages }) {
     const pathname = usePathname();
 
     const isHomePage = pathname === `/${locale}` && pathname.length === 3;
-
+    
     return (
         <>
             {isHomePage ? (
@@ -16,7 +16,7 @@ export default function ClientLayout({ children, locale, messages }) {
             ) : (
                 <MainNavBar locale={locale} />
             )}
-            <main>{children}</main>
+            {children}
         </>
     );
 }

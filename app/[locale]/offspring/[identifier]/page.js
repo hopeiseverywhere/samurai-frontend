@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslations } from "next-intl";
 import ReactFlowComponent from "@components/ReactFlowComponent";
-import { transformDataToFlow } from "@util/dataTransform";
+import { transformDataToFlow } from "@app/[locale]/flow/util/dataTransform";
 import "reactflow/dist/style.css";
 import mockOffspringData from "../../../../public/mockOffspringData.json";
 const USE_MOCK_DATA = true; // Toggle this to true to use mock data
