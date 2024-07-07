@@ -2,7 +2,7 @@ import React from "react";
 import { Handle, Position } from "reactflow";
 import "../styles.css";
 
-const HumanNode = ({ data, isConnectable }) => {
+const HumanNode = ({ data, isHorizontal }) => {
     return (
         <div className="custom-node">
             <Handle type="target" position={isHorizontal ? "left" : "top"} />

@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import ReactFlow, {
     Background,
     ReactFlowProvider,
@@ -10,7 +10,7 @@ import ReactFlow, {
     useReactFlow,
     Panel,
 } from "reactflow";
-import Dagre from "@dagrejs/dagre";
+import dagre from "dagre";
 import "reactflow/dist/style.css";
 import HumanNode from "./HumanNode";
 import NodeSidebar from "./NodeSidebar";
@@ -19,39 +19,52 @@ import "../styles.css";
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
-const dagreGraph = new Dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
+// Initialize Dagre graph
+const dagreGraph = new dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
+const nodeWidth = 172;
+const nodeHeight = 36;
 
+// Function to layout nodes and edges using Dagre
 const getLayoutedElements = (nodes, edges, direction = "TB") => {
+    const isHorizontal = direction === "LR";
     dagreGraph.setGraph({ rankdir: direction });
 
     edges.forEach((edge) => dagreGraph.setEdge(edge.source, edge.target));
     nodes.forEach((node) => {
-        dagreGraph.setNode(node.id, { width: 172, height: 36 }); // set width and height of nodes
+        // set width and height of nodes
+        dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
     });
 
-    Dagre.layout(dagreGraph);
+    dagre.layout(dagreGraph);
 
-    return {
-        nodes: nodes.map((node) => {
-            const position = dagreGraph.node(node.id);
-            const x = position.x - 86; // 172/2 = 86
-            const y = position.y - 18; // 36/2 = 18
-            return { ...node, position: { x, y } };
-        }),
-        edges,
-    };
+    nodes.forEach((node) => {
+        const nodeWithPosition = dagreGraph.node(node.id);
+        node.targetPosition = isHorizontal ? "left" : "top";
+        node.sourcePosition = isHorizontal ? "right" : "bottom";
+
+        // Shift the node position to match React Flow's top-left anchor point
+        node.position = {
+            x: nodeWithPosition.x - nodeWidth / 2,
+            y: nodeWithPosition.y - nodeHeight / 2,
+        };
+
+        return node;
+    });
+    return { nodes, edges };
 };
 
+// Define custom node types
 const nodeTypes = {
-    humanNode: (props) => <HumanNode {...props} layoutDirection={props.layoutDirection} />,
+    humanNode: HumanNode,
 };
-
-const DnDFlow = ({ initialNodes, initialEdges }) => {
+// Main component for the drag-and-drop flow
+const DnDFlow = ({ initialNodes = [], initialEdges = [] }) => {
+    // State management for nodes and edges
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     const { fitView, screenToFlowPosition } = useReactFlow();
-    const [layoutDirection, setLayoutDirection] = useState("TB");
 
+    // Layout nodes and edges on initial load
     useEffect(() => {
         const { nodes: layoutedNodes, edges: layoutedEdges } =
             getLayoutedElements(initialNodes, initialEdges);
@@ -62,16 +75,19 @@ const DnDFlow = ({ initialNodes, initialEdges }) => {
         });
     }, [initialNodes, initialEdges, setNodes, setEdges, fitView]);
 
+    // Callback for connecting nodes
     const onConnect = useCallback(
-        (params) => setEdges((eds) => addEdge(params, eds)),
+        (params) => setEdges((eds) => addEdge({ ...params, type: 'smoothstep' }, eds)),
         [setEdges]
     );
 
+    // Callback for handling drag over event
     const onDragOver = useCallback((event) => {
         event.preventDefault();
         event.dataTransfer.dropEffect = "move";
     }, []);
 
+    // Callback for handling drop event to add new nodes
     const onDrop = useCallback(
         (event) => {
             event.preventDefault();
@@ -90,17 +106,17 @@ const DnDFlow = ({ initialNodes, initialEdges }) => {
                 id: getId(),
                 type: "humanNode",
                 position,
-                data: { label: `${type} node`, layoutDirection }, // Pass layoutDirection
+                data: { label: `${type} node` },
             };
 
             setNodes((nds) => nds.concat(newNode));
         },
-        [screenToFlowPosition, setNodes, layoutDirection]
+        [screenToFlowPosition, setNodes]
     );
 
+    // Callback for re-layouting nodes and edges
     const onLayout = useCallback(
         (direction) => {
-            setLayoutDirection(direction);
             const { nodes: layoutedNodes, edges: layoutedEdges } =
                 getLayoutedElements(nodes, edges, direction);
             setNodes([...layoutedNodes]);
@@ -128,7 +144,6 @@ const DnDFlow = ({ initialNodes, initialEdges }) => {
                     onDrop={onDrop}
                     onDragOver={onDragOver}
                     fitView
-                    nodeTypes={nodeTypes}
                 >
                     <Background />
                     <Controls />
@@ -146,7 +161,7 @@ const DnDFlow = ({ initialNodes, initialEdges }) => {
     );
 };
 
-export default ({ initialNodes, initialEdges }) => (
+export default ({ initialNodes = [], initialEdges = [] }) => (
     <div className="providerflow">
         <ReactFlowProvider>
             <DnDFlow initialNodes={initialNodes} initialEdges={initialEdges} />
