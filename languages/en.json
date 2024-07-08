@@ -21,5 +21,14 @@
     "HomeSearchBar": {
         "placeholder": "Search Nickname...",
         "button": "Search"
+    },
+    "FlowSideBar":{
+        "title": "Drag and drop",
+        "instruction": "You can drag these nodes to the pane on the left.",
+        "default": "Default Node",
+        "enterGivenName": "Given Name",
+        "enterFamilyName": "Family Name",
+        "enterNickName": "Nickname",
+        "alert": "First name and last name cannot be null!"
     }
 }

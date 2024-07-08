@@ -1,4 +1,3 @@
-"use client";
 import React, { useCallback, useEffect } from "react";
 import ReactFlow, {
     Background,
@@ -15,6 +14,7 @@ import "reactflow/dist/style.css";
 import HumanNode from "./HumanNode";
 import NodeSidebar from "./NodeSidebar";
 import "../styles.css";
+import { usePathname } from "next/navigation";
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
@@ -55,10 +55,11 @@ const getLayoutedElements = (nodes, edges, direction = "TB") => {
 
 // Define custom node types
 const nodeTypes = {
-    humanNode: HumanNode,
+    humanNode: (props) => <HumanNode {...props} isNew={props.data.isNew} />,
 };
+
 // Main component for the drag-and-drop flow
-const DnDFlow = ({ initialNodes = [], initialEdges = [] }) => {
+const DnDFlow = ({ initialNodes = [], initialEdges = [], locale }) => {
     // State management for nodes and edges
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -77,7 +78,8 @@ const DnDFlow = ({ initialNodes = [], initialEdges = [] }) => {
 
     // Callback for connecting nodes
     const onConnect = useCallback(
-        (params) => setEdges((eds) => addEdge({ ...params, type: 'smoothstep' }, eds)),
+        (params) =>
+            setEdges((eds) => addEdge({ ...params, type: "smoothstep" }, eds)),
         [setEdges]
     );
 
@@ -93,6 +95,7 @@ const DnDFlow = ({ initialNodes = [], initialEdges = [] }) => {
             event.preventDefault();
 
             const type = event.dataTransfer.getData("application/reactflow");
+            const customLabel = event.dataTransfer.getData("text/plain");
 
             if (typeof type === "undefined" || !type) {
                 return;
@@ -106,7 +109,7 @@ const DnDFlow = ({ initialNodes = [], initialEdges = [] }) => {
                 id: getId(),
                 type: "humanNode",
                 position,
-                data: { label: `${type} node` },
+                data: { label: customLabel || `${type} node`, isNew: true },
             };
 
             setNodes((nds) => nds.concat(newNode));
@@ -129,10 +132,17 @@ const DnDFlow = ({ initialNodes = [], initialEdges = [] }) => {
         [nodes, edges, setNodes, setEdges, fitView]
     );
 
+    // Define the onDragStart function here
+    const onDragStart = (event, nodeType, customText) => {
+        event.dataTransfer.setData("application/reactflow", nodeType);
+        event.dataTransfer.setData("text/plain", customText);
+        event.dataTransfer.effectAllowed = "move";
+    };
+
     return (
         <>
             <div className="sidebar">
-                <NodeSidebar />
+                <NodeSidebar onDragStart={onDragStart} locale={locale} />
             </div>
             <div className="reactflow-wrapper">
                 <ReactFlow
@@ -143,6 +153,7 @@ const DnDFlow = ({ initialNodes = [], initialEdges = [] }) => {
                     onConnect={onConnect}
                     onDrop={onDrop}
                     onDragOver={onDragOver}
+                    nodeType={nodeTypes}
                     fitView
                 >
                     <Background />

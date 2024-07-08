@@ -18,8 +18,13 @@
         "figure": "歴史的人物",
         "details": "詳細"
     },
-    "HomeSearchBar": {
-        "placeholder": "通称を検索...",
-        "button": "検索"
+    "FlowSideBar": {
+        "title": "ドラッグ＆ドロップ",
+        "instruction": "これらのノードを左側のペインにドラッグできます。",
+        "default": "デフォルトノード",
+        "enterGivenName": "名",
+        "enterFamilyName": "姓",
+        "enterNickName": "通称",
+        "alert": "姓と名を入力してください！"
     }
 }

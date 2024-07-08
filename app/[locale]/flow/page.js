@@ -27,6 +27,7 @@ const FlowPage = ({ params }) => {
             <DnDFlow
                 initialNodes={flowData.nodes}
                 initialEdges={flowData.edges}
+                locale={locale}
             />
         </>
     );
